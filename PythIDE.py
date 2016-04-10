@@ -11,7 +11,11 @@ class Application(Frame):
 	def compilegpp(self):
 		test = os.system("g++ " + self.namebefore.get() + " -o " + self.nameafter.get())
 		if test != 0:
-			messagebox.showerror(title = "Error", message = "Compilation failed.")
+			with open('compiler.sh', 'w') as f:
+				f.write("g++ " + self.namebefore.get() + " -o " + self.nameafter.get() + "\necho \"Press Enter to end.\"\nread _\n")
+			os.system('chmod +x compiler.sh')
+			os.system('x-terminal-emulator -e ./compiler.sh')
+			os.system("rm ./compiler.sh")
 		else:
 			messagebox.showinfo(title = "Compilation", message = "Compilation ended successfully.")
 	def run(self):
@@ -19,6 +23,7 @@ class Application(Frame):
 			f.write("\n" + self.nameafter.get() + "\necho \"Running program done, press Enter to continue...\"\nread _\n")
 		os.system('chmod +x runner.sh')
 		os.system('x-terminal-emulator -e ./runner.sh')
+		os.system("rm ./runner.sh")
 
 	def endide(self):
 		exit()
@@ -26,7 +31,7 @@ class Application(Frame):
 		with open(self.namebefore.get(), 'w') as file_: print(self.edit.get(0.0, END), file=file_)
 
 	def create_widgets(self):
-		self.edit = Text(self, width = 45, height = 30, wrap = WORD)
+		self.edit = Text(self, width = 55, height = 30, wrap = WORD)
 		self.namebefore_text = Label(self, text = "Name of file to save and compile (full path):")
 		self.namebefore = Entry(self)
 		self.nameafter_text = Label(self, text = "Name of file to create (full path):")
