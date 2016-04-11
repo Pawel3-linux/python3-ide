@@ -4,7 +4,7 @@ from tkinter import messagebox
 import os
 class Application(Frame):
 	def __init__(self, master):
-		super(Application, self).__init__(master)
+		Frame.__init__(self, master)
 		self.grid()
 		self.create_widgets()
 
