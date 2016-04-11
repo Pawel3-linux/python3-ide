@@ -53,6 +53,7 @@ class Application(Frame):
 		self.run_button.grid(row = 0, column = 3, sticky = W)
 		self.save_button.grid(row = 0, column = 4, sticky = W)
 		self.open_button.grid(row = 0, column = 5, sticky = W)
+		textwidget.config(tabs = ("1c"))
 
 root = Tk()
 root.title("C++ IDE")
