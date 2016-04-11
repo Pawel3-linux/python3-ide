@@ -25,8 +25,12 @@ class Application(Frame):
 		os.system('x-terminal-emulator -e ./runner.sh')
 		os.system("rm ./runner.sh")
 
-	def endide(self):
-		exit()
+	def read(self):
+		print(repr(self.namebefore.get()))
+		with open(self.namebefore.get(), 'r') as f: read_data = f.read()
+		self.edit.delete(0.0, END)
+		self.edit.insert(0.0, read_data)
+
 	def save(self):
 		with open(self.namebefore.get(), 'w') as file_: print(self.edit.get(0.0, END), file=file_)
 
@@ -39,7 +43,7 @@ class Application(Frame):
 		self.save_button = Button(self, text = "Only Save", command = self.save)
 		self.comp_button = Button(self, text = "Compile (g++)", command = self.compilegpp)
 		self.run_button = Button(self, text = "Run", command = self.run)
-		self.close_button = Button(self, text = "Close IDE", command = self.endide)
+		self.open_button = Button(self, text = "Open file", command = self.read)
 		self.edit.grid(row = 0, column = 0, sticky = W)
 		self.namebefore_text.grid(row = 1, column = 0, sticky = W)
 		self.namebefore.grid(row = 1, column = 1, sticky = W)
@@ -48,7 +52,7 @@ class Application(Frame):
 		self.comp_button.grid(row = 0, column = 2, sticky = W)
 		self.run_button.grid(row = 0, column = 3, sticky = W)
 		self.save_button.grid(row = 0, column = 4, sticky = W)
-		self.close_button.grid(row = 0, column = 5, sticky = W)
+		self.open_button.grid(row = 0, column = 5, sticky = W)
 
 root = Tk()
 root.title("C++ IDE")
