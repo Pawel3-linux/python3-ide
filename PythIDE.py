@@ -20,7 +20,7 @@ class Application(Frame):
 			messagebox.showinfo(title = "Compilation", message = "Compilation ended successfully.")
 	def run(self):
 		with open('runner.sh', 'w') as f:
-			f.write("\n" + self.nameafter.get() + "\necho \"Running program done, press Enter to continue...\"\nread _\n")
+			f.write("\n" + self.nameafter.get() + " " + self.parameters_entry.get() + "\necho \"Running program done, press Enter to continue...\"\nread _\n")
 		os.system('chmod +x runner.sh')
 		os.system('x-terminal-emulator -e ./runner.sh')
 		os.system("rm ./runner.sh")
@@ -44,6 +44,8 @@ class Application(Frame):
 		self.comp_button = Button(self, text = "Compile (g++)", command = self.compilegpp)
 		self.run_button = Button(self, text = "Run", command = self.run)
 		self.open_button = Button(self, text = "Open file", command = self.read)
+		self.parameters_txt = Label(self, text = "Parameters (optional):")
+		self.parameters_entry = Entry(self)
 		self.edit.grid(row = 0, column = 0, sticky = W)
 		self.namebefore_text.grid(row = 1, column = 0, sticky = W)
 		self.namebefore.grid(row = 1, column = 1, sticky = W)
@@ -53,7 +55,9 @@ class Application(Frame):
 		self.run_button.grid(row = 0, column = 3, sticky = W)
 		self.save_button.grid(row = 0, column = 4, sticky = W)
 		self.open_button.grid(row = 0, column = 5, sticky = W)
-		textwidget.config(tabs = ("1c"))
+		self.parameters_txt.grid(row = 3, column = 0, sticky = W)
+		self.parameters_entry.grid(row = 3, column = 1, sticky = W)
+		self.edit.config(tabs = ("1c"))
 
 root = Tk()
 root.title("C++ IDE")
